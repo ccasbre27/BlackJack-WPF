@@ -43,7 +43,8 @@ namespace BlackJackCL
         Undefined,
         Error,
         AreReady,
-        Ready,
+        ReadyToPlay,
+        Ok,
         Deal,
         Playing,
         Stay,
@@ -56,7 +57,7 @@ namespace BlackJackCL
         BlackJack,
         PlayerOneWins,
         PlayerTwoWins,
-        Tied
+        Tie
     }
 
 

@@ -9,6 +9,8 @@ namespace BlackJackCL
 {
     public class Player
     {
+        public int IdPlayer { get; set; }
+
         public List<Card> Cards { get; set; }
 
         public int SumOfCards { get; set; }
@@ -21,6 +23,7 @@ namespace BlackJackCL
 
         public Player()
         {
+            IdPlayer = 0;
             Cards = new List<Card>();
             SumOfCards = 0;
             TcpConnection = new TcpClient();

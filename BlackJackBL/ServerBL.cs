@@ -156,7 +156,17 @@ namespace BlackJackBL
                 Status clientMessage = (Status) Enum.Parse(typeof(Status), binaryReader.ReadByte().ToString());
                 int gamePlayer = binaryReader.ReadInt32();
 
-                StartToPlay(ref clientTCP, ref binaryReader, ref binaryWriter);
+                // Se recibió un mensaje de "Ready". 
+                if (numberOfPlayer == gamePlayer)
+                {
+                    // indicamos que se ha recibido el mensaje
+                    binaryWriter.Write((Byte) Status.Ok);
+                    binaryWriter.Flush();
+                    
+                    StartToPlay(ref clientTCP, ref binaryReader, ref binaryWriter);
+                }
+
+               
                    
                
             }
@@ -282,9 +292,9 @@ namespace BlackJackBL
                             break;
 
                         case Status.Continue:
-                            StatusPlayerOne = Status.Ready;
+                            StatusPlayerOne = Status.ReadyToPlay;
 
-                            StatusPlayerTwo = Status.Ready;
+                            StatusPlayerTwo = Status.ReadyToPlay;
                             break;
 
                         default:
@@ -493,54 +503,70 @@ namespace BlackJackBL
 
         #endregion
 
-        #region validar eventos
+        #region validación y registro de eventos
 
-        virtual protected void OnPlayerOneConnected()
+        private void OnPlayerOneConnected()
         {
             if (PlayerOneConnected != null)
+            {
                 PlayerOneConnected(this, EventArgs.Empty);
+            }
         }
 
-        virtual protected void OnPlayerTwoConnected()
+        private void OnPlayerTwoConnected()
         {
             if (PlayerTwoConnected != null)
+            {
                 PlayerTwoConnected(this, EventArgs.Empty);
+            }    
         }
 
-        virtual protected void OnClientDisconnected()
+        private void OnClientDisconnected()
         {
             if (ClientDisconnected != null)
+            {
                 ClientDisconnected(this, EventArgs.Empty);
+            }                
         }
 
-        virtual protected void OnPlayerOneWins()
+        private void OnPlayerOneWins()
         {
             if (PlayerOneWins != null)
+            {
                 PlayerOneWins(this, EventArgs.Empty);
+            }    
         }
 
-        virtual protected void OnPlayerTwoWins()
+        private void OnPlayerTwoWins()
         {
             if (PlayerTwoWins != null)
+            {
                 PlayerTwoWins(this, EventArgs.Empty);
+            }   
         }
 
-        virtual protected void OnGameTied()
+        private void OnGameTied()
         {
             if (TiedGame != null)
+            {
                 TiedGame(this, EventArgs.Empty);
+            }
         }
 
-        virtual protected void OnTooManyClients()
+        private void OnTooManyClients()
         {
             if (TooManyClients != null)
+            {
                 TooManyClients(this, EventArgs.Empty);
+            }    
         }
 
-        virtual protected void OnCardDealed(MessageEventArgs e)
+        private void OnCardDealed(MessageEventArgs e)
         {
             if (CardDealed != null)
+            {
                 CardDealed(this, e);
+            }
         }
         #endregion
     }

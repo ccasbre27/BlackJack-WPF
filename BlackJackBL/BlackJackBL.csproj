@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientBL.cs" />
     <Compile Include="DealerBL.cs" />
     <Compile Include="PlayerBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
