@@ -36,15 +36,30 @@ namespace BlackJackCL
         Undefined
     }
 
+
     [Serializable]
-    public enum PlayerStatus
+    public enum Status
     {
+        Undefined,
+        Error,
+        AreReady,
+        Ready,
+        Deal,
         Playing,
         Stay,
+        Lost,
+        Wins,
+        GameOver,
+        Continue,
         FiveCards,
         TwentyOne,
         BlackJack,
-        Lost,
-        Undefined
+        PlayerOneWins,
+        PlayerTwoWins,
+        Tied
     }
+
+
+
+
 }

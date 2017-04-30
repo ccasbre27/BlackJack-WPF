@@ -7,7 +7,7 @@ using BlackJackCL;
 
 namespace BlackJackBL
 {
-    public class Dealer
+    public class DealerBL
     {
         public Deck DealerDeck { get; set; }
 

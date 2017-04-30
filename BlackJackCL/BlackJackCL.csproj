@@ -39,11 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Card.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Events\MessageEventArgs.cs" />
+    <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Deck.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,18 +11,21 @@ namespace BlackJackCL
     {
         public List<Card> Cards { get; set; }
 
-        public int SumCards { get; set; }
+        public int SumOfCards { get; set; }
 
         public TcpClient TcpConnection { get; set; }
 
-        public PlayerStatus Status { get; set; }
+        public Status Status { get; set; }
+
+        public bool IsPlaying { get; set; }
 
         public Player()
         {
             Cards = new List<Card>();
-            SumCards = 0;
+            SumOfCards = 0;
             TcpConnection = new TcpClient();
-            Status = PlayerStatus.Undefined;
+            Status = Status.Undefined;
+            IsPlaying = false;
         }
 
         public void AddCard(Card card)
@@ -48,7 +51,7 @@ namespace BlackJackCL
                     // cada posición está asociada al valor por lo que podemos hacer un casting
                     // para obtener el valor y sumarlo
                     // se suma 1 porque empieza en cero
-                    SumCards += (int) card.Value + 1;
+                    SumOfCards += (int)card.Value + 1;
                     break;
 
                 case CardValue.Ace:
@@ -61,11 +64,11 @@ namespace BlackJackCL
                             Cards[0].Value == CardValue.Queen ||
                             Cards[0].Value == CardValue.King)
                         {
-                            Status = PlayerStatus.BlackJack;
+                            Status = Status.BlackJack;
                         }
                     }
-                   
-                    SumCards += 11;
+
+                    SumOfCards += 11;
 
                     break;
 
@@ -81,11 +84,11 @@ namespace BlackJackCL
                     {
                         if (Cards[0].Value == CardValue.Ace)
                         {
-                            Status = PlayerStatus.BlackJack;
+                            Status = Status.BlackJack;
                         }
                     }
 
-                    SumCards += 10;
+                    SumOfCards += 10;
                     break;
 
                 default:
@@ -95,7 +98,7 @@ namespace BlackJackCL
 
             
             // se verifica si se pasó de la suma
-            if (SumCards > 21)
+            if (SumOfCards > 21)
             {
                 // entonces se pasa el As a valer uno
              
@@ -113,29 +116,29 @@ namespace BlackJackCL
                     Cards[index].Value = CardValue.One;
 
                     // se resta 11 del as y se suma 1 del uno
-                    SumCards -= 10;
+                    SumOfCards -= 10;
                 }
                 else
                 {
                     // en caso que no se encuentre quiere decir que no se puede cambiar ningún AS de valor
                     // por lo que perdió
-                    Status = PlayerStatus.Lost;
+                    Status = Status.Lost;
                 }
                 
                
             }
 
             // se verifica si hay 5 cartas menores que 21, se hace aquí porque el AS pudo haber cambiado
-            if (Cards.Count == 5 && SumCards < 21)
+            if (Cards.Count == 5 && SumOfCards < 21)
             {
-                Status = PlayerStatus.FiveCards;
+                Status = Status.FiveCards;
             }
 
             // se verifica el total, si es 21 y que no sea Black Jack para que no lo sobreescriba
-            if (SumCards == 21 && Status != PlayerStatus.BlackJack)
+            if (SumOfCards == 21 && Status != Status.BlackJack)
             {
                 // se indica el estado
-                Status = PlayerStatus.TwentyOne;
+                Status = Status.TwentyOne;
             }
         }
     }

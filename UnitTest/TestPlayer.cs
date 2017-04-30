@@ -16,7 +16,7 @@ namespace UnitTest
 
             player.AddCard(new Card(CardSuit.Clubs, CardValue.Ace));
 
-            Assert.AreEqual(player.Status, PlayerStatus.BlackJack);
+            Assert.AreEqual(player.Status, Status.BlackJack);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace UnitTest
             player.AddCard(new Card(CardSuit.Diamonds, CardValue.Seven));
             player.AddCard(new Card(CardSuit.Spades, CardValue.Seven));
 
-            Assert.AreEqual(player.Status, PlayerStatus.TwentyOne);
+            Assert.AreEqual(player.Status, Status.TwentyOne);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace UnitTest
             player.AddCard(new Card(CardSuit.Diamonds, CardValue.Seven));
             player.AddCard(new Card(CardSuit.Spades, CardValue.Eight));
 
-            Assert.AreEqual(player.Status, PlayerStatus.Lost);
+            Assert.AreEqual(player.Status, Status.Lost);
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace UnitTest
             player.AddCard(new Card(CardSuit.Spades, CardValue.Three));
             player.AddCard(new Card(CardSuit.Hearts, CardValue.Two));
 
-            Assert.AreEqual(player.Status, PlayerStatus.FiveCards);
+            Assert.AreEqual(player.Status, Status.FiveCards);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace UnitTest
             player.AddCard(new Card(CardSuit.Spades, CardValue.Two));
             player.AddCard(new Card(CardSuit.Hearts, CardValue.Jack));
 
-            Assert.AreEqual(player.Status, PlayerStatus.FiveCards);
+            Assert.AreEqual(player.Status, Status.FiveCards);
         }
     }
 }

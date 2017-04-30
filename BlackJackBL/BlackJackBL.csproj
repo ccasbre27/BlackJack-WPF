@@ -39,9 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dealer.cs" />
+    <Compile Include="DealerBL.cs" />
     <Compile Include="PlayerBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackJackCL\BlackJackCL.csproj">

@@ -38,18 +38,18 @@ namespace BlackJackCL
             Value = CardValue.Undefined;
         }
 
-        public Card(CardSuit pSuit, CardValue pCardValue)
+        public Card(CardSuit suit, CardValue cardValue)
         {
-            Suit = pSuit;
-            Value = pCardValue;
+            this.Suit = suit;
+            this.Value = cardValue;
 
         }
 
-        public Card(CardSuit pSuit, CardValue pCardValue, string pPictureURL)
+        public Card(CardSuit suit, CardValue cardValue, string pictureURL)
         {
-            Suit = pSuit;
-            Value = pCardValue;
-            PictureURL = pPictureURL;
+            this.Suit = suit;
+            this.Value = cardValue;
+            this.PictureURL = pictureURL;
         }
 
         public override bool Equals(object obj)
