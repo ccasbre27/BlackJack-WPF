@@ -49,8 +49,8 @@ namespace BlackJackBL
  
         // eventos fin de juego
         public event EventHandler PlayerOneWins;
+        public event EventHandler PlayerTwoWins;
         public event EventHandler TiedGame; 
-        public event EventHandler PlayerTwoWins; 
         #endregion
 
 

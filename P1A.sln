@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJackBL", "BlackJackBL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{D46FD4B8-1078-4C25-BCC4-94AA9D07973B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server-Console", "Server-Console\Server-Console.csproj", "{D0D427FD-BF8F-46F1-A397-F40F8D562B96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D46FD4B8-1078-4C25-BCC4-94AA9D07973B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D46FD4B8-1078-4C25-BCC4-94AA9D07973B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D46FD4B8-1078-4C25-BCC4-94AA9D07973B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D427FD-BF8F-46F1-A397-F40F8D562B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D427FD-BF8F-46F1-A397-F40F8D562B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D427FD-BF8F-46F1-A397-F40F8D562B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D427FD-BF8F-46F1-A397-F40F8D562B96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
