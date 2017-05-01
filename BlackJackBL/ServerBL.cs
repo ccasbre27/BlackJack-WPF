@@ -104,9 +104,7 @@ namespace BlackJackBL
                             // se dispara el evento
                             OnPlayerOneConnected();
 
-                            // se indica que está jugando
-                            playerOne.IsPlaying = true;
-
+                    
                             // se inicia la configuración para el cliente en una nueva tarea
                             new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
                             break;
@@ -117,9 +115,6 @@ namespace BlackJackBL
 
                             // se dispara el evento
                             OnPlayerTwoConnected();
-
-                            // se indica que está jugando
-                            playerTwo.IsPlaying = true;
 
                             // se inicia la configuración para el cliente en una nueva tarea
                             new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
@@ -344,17 +339,9 @@ namespace BlackJackBL
                             break;
                     }
 
-                    if (playerOne.IsPlaying)
-                    {
-                        SendMessage(new Message(1, StatusPlayerOne));
-                    }
-
-                    if (playerTwo.IsPlaying)
-                    {
-                        SendMessage(new Message(2, StatusPlayerTwo));
-                    }
-                    
-
+                   
+                    SendMessage(new Message(1, StatusPlayerOne));
+                    SendMessage(new Message(2, StatusPlayerTwo));
 
                     #endregion
                  

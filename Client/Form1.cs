@@ -79,6 +79,8 @@ namespace Client
 
         void clientBL_PlayerLoose(object sender, EventArgs e)
         {
+
+            MessageBox.Show("Ha perdido!", "Jugador #" + player.IdPlayer);
             player.Status = Status.GameOver;
             CheckGameContinue();
         }
@@ -199,7 +201,6 @@ namespace Client
 
                     SetButtonsEnabled(false);
                     lblStatus.Text = "Ha perdido";
-                    MessageBox.Show("Ha perdido!", "Jugador #" + player.IdPlayer);
                 }
 
             }));
