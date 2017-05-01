@@ -58,10 +58,7 @@ namespace BlackJackCL
         CloserTo21,
         PlayerOneWins,
         PlayerTwoWins,
-        Tie,
-        TooManyClients,
-        PlayersConnected
-        
+        Tie
     }
 
 

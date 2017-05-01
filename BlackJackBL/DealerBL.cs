@@ -9,12 +9,7 @@ namespace BlackJackBL
 {
     public class DealerBL
     {
-        private Deck DealerDeck;
-
-        public DealerBL()
-        {
-            DealerDeck = new Deck();
-        }
+        public Deck DealerDeck { get; set; }
 
         /// <summary>
         /// Este método devuelve la primer carta

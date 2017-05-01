@@ -56,7 +56,7 @@ namespace BlackJackBL
             tcpClient = null;
         }
 
-        public void Connect()
+        private void Connect()
         {
             try
             {
@@ -91,7 +91,7 @@ namespace BlackJackBL
                         binaryWriter.Flush();
 
                         //Esperamos el ACK del servidor
-                        status = (Status) Enum.Parse(typeof(Status), binaryReader.ReadByte().ToString());
+                        status = (Status) Enum.Parse(typeof(Message), binaryReader.ReadByte().ToString());
                         
                         if (status == Status.Ok)
                         {
@@ -139,7 +139,6 @@ namespace BlackJackBL
                    
                         case Status.ReadyToPlay:
                             amountOfBytesToRead = binaryReader.ReadInt32();
-                            // se obtiene el mensaje que el servidor envía
                             message = (Message) Helper.ByteArrayToObject(binaryReader.ReadBytes(amountOfBytesToRead));
                             OnGameContinue();
                             break;
@@ -211,7 +210,7 @@ namespace BlackJackBL
             }
         }
 
-        public void Disconnect()
+        private void Disconnect()
         {
             // se verifica si el jugador está conectado
             if (IsConnected)

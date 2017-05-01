@@ -84,7 +84,13 @@ namespace BlackJackBL
             // se ejecuta mientras esté corriendo
             while (IsRunning)
             {
-                if (ConnectedClients < 2)
+                // se verifica la cantidad de clientes conectados
+                if (ConnectedClients == 2)
+                {
+                    // se lanza el evento que indica que ya están los dos jugadores conectados
+                    OnTooManyClients();
+                }
+                else
                 {
                     // en caso que aún no estén los jugadores y se intente conectar uno
                     // se acepta la conexión y la obtenemos
@@ -104,11 +110,6 @@ namespace BlackJackBL
                             // se dispara el evento
                             OnPlayerOneConnected();
 
-                            // se indica que está jugando
-                            playerOne.IsPlaying = true;
-
-                            // se inicia la configuración para el cliente en una nueva tarea
-                            new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
                             break;
 
                         case 2:
@@ -117,19 +118,14 @@ namespace BlackJackBL
 
                             // se dispara el evento
                             OnPlayerTwoConnected();
-
-                            // se indica que está jugando
-                            playerTwo.IsPlaying = true;
-
-                            // se inicia la configuración para el cliente en una nueva tarea
-                            new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
                             break;
 
                         default:
                             break;
                     }
 
-                    
+                    // se inicia la configuración para el cliente
+                    ClientSetup(ConnectedClients, tcpClient);
                 }
             }
         }
@@ -149,7 +145,7 @@ namespace BlackJackBL
                 BinaryWriter binaryWriter = new BinaryWriter(networkStream, Encoding.UTF8);
 
                 // enviamos un aviso al cliente
-                binaryWriter.Write((Byte) Status.AreReady);
+                binaryWriter.Write((Byte) (Status.AreReady));
                 binaryWriter.Write(numberOfPlayer);
 
                 // limpiamos el buffer
@@ -158,16 +154,19 @@ namespace BlackJackBL
                 // esperamos que el jugador nos indique que está listo
                 // se lee lo que 
                 Status clientMessage = (Status) Enum.Parse(typeof(Status), binaryReader.ReadByte().ToString());
-                binaryReader.ReadInt32();
+                int gamePlayer = binaryReader.ReadInt32();
 
-                // indicamos que se ha recibido el mensaje
-                binaryWriter.Write((Byte) Status.Ok);
-                binaryWriter.Flush();
+                // Se recibió un mensaje de "Ready". 
+                if (numberOfPlayer == gamePlayer)
+                {
+                    // indicamos que se ha recibido el mensaje
+                    binaryWriter.Write((Byte) Status.Ok);
+                    binaryWriter.Flush();
                     
-                StartToPlay(ref clientTCP, ref binaryReader, ref binaryWriter);
-                
+                    StartToPlay(ref clientTCP, ref binaryReader, ref binaryWriter);
+                }
 
-                
+               
                    
                
             }
@@ -177,47 +176,10 @@ namespace BlackJackBL
             }
         }
 
-        public void WriteToClient(TcpClient clientTCP, Status status)
-        {
-            NetworkStream networkStream = null;
-            BinaryReader binaryReader = null;
-            BinaryWriter binaryWriter = null;
-
-            try
-            {
-                // Obtenemos el canal de comunicación
-                networkStream = clientTCP.GetStream();
-
-                // permite ler datos del canal
-                binaryReader = new BinaryReader(networkStream, Encoding.UTF8);
-
-                // permite escribir datos en el canal
-                binaryWriter = new BinaryWriter(networkStream, Encoding.UTF8);
-
-                // enviamos un aviso al cliente
-                binaryWriter.Write((Byte) status);
-
-                // limpiamos el buffer
-                binaryWriter.Flush();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                networkStream.Close();
-                binaryReader.Close();
-                binaryWriter.Close();
-            }
-        }
-
         private void StartToPlay(ref TcpClient tcpClient, ref BinaryReader binaryReader, ref BinaryWriter binaryWriter)
         {
             Message message = new Message();
             Card card = new Card();
-            int deckSum = 0;
 
             try
             {
@@ -225,16 +187,15 @@ namespace BlackJackBL
                 while (tcpClient.Client.Connected)  
                 {
                     // se obtiene el tipo de mensaje
-                    Status status = (Status) Enum.Parse(typeof(Status), binaryReader.ReadByte().ToString());
+                    Status Status = (Status) Enum.Parse(typeof(Status), binaryReader.ReadByte().ToString());
 
                     int currentNumberOfPlayer = binaryReader.ReadInt32();
 
                     #region obtener carta
-                    switch (status)
+                    switch (Status)
                     {
-
+                   
                         case Status.Deal:
-
 
                             lock (dealerBL)
                             {
@@ -248,28 +209,21 @@ namespace BlackJackBL
                             {
                                 // se agrega al deck del jugador
                                 playerOne.AddCard(card);
-
-                                deckSum = playerOne.SumOfCards;
-
                             }
                             else if (currentNumberOfPlayer == 2)
                             {
                                 // se agrega al deck del jugador
                                 playerTwo.AddCard(card);
-
-                                deckSum = playerTwo.SumOfCards;
                             }
 
                             // se establece el mensaje que se va enviar
-                            message = new Message(currentNumberOfPlayer, card, Status.Deal, deckSum);
+                            message = new Message(currentNumberOfPlayer, card, Status.Deal);
 
                             // se envía el mensaje
                             SendMessage(message);
 
                             // se dispara el evento que indica que se entrégó una carta
                             OnCardDealed(new MessageEventArgs(message));
-
-
 
                             break;
 
@@ -282,7 +236,7 @@ namespace BlackJackBL
                                 playerOne.IsPlaying = false;
 
                                 playerOne.Status = Status.Stay;
-
+                                
                             }
                             else if (currentNumberOfPlayer == 2)
                             {
@@ -290,15 +244,15 @@ namespace BlackJackBL
                                 playerTwo.IsPlaying = false;
 
                                 playerTwo.Status = Status.Stay;
-
+                                
                             }
-
-
+                            
+                            
                             break;
                         default:
                             break;
                     }
-                    #endregion
+                    #endregion 
 
                     #region obtener estado actual del juego
                     // se obtiene el estado actual del juego
@@ -316,6 +270,7 @@ namespace BlackJackBL
 
                             StatusPlayerTwo = Status.GameOver;
 
+                            // finish
                             break;
 
                         // jugador dos gana
@@ -324,7 +279,8 @@ namespace BlackJackBL
                             StatusPlayerTwo = Status.Wins;
 
                             StatusPlayerOne = Status.GameOver;
-
+                            
+                            //Finish();
                             break;
 
                         // empate
@@ -332,6 +288,7 @@ namespace BlackJackBL
                             StatusPlayerOne = Status.Tie;
 
                             StatusPlayerTwo = Status.Tie;
+                            //Finish();
                             break;
 
                         case Status.Continue:
@@ -344,21 +301,12 @@ namespace BlackJackBL
                             break;
                     }
 
-                    if (playerOne.IsPlaying)
-                    {
-                        SendMessage(new Message(1, StatusPlayerOne));
-                    }
-
-                    if (playerTwo.IsPlaying)
-                    {
-                        SendMessage(new Message(2, StatusPlayerTwo));
-                    }
+                    // send message to player one and player two
                     
-
+                    SendMessage(new Message(1, StatusPlayerOne));
+                    SendMessage(new Message(2, StatusPlayerTwo));
 
                     #endregion
-                 
-                  
                 }
             }
             catch (Exception ex)
@@ -547,8 +495,7 @@ namespace BlackJackBL
                 }
                 else
                 {
-                    return Status.Continue;  
-                    
+                    return Status.Continue;                  
                 }
             }
         }

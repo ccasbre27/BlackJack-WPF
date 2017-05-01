@@ -8,16 +8,16 @@ namespace BlackJackCL.Events
 {
     public class MessageEventArgs
     {
-        public Message Message { get; set; }
+        public Message GameMessage { get; set; }
 
         public MessageEventArgs()
         {
-            Message = new Message(); 
+            GameMessage = new Message(); 
         }
 
         public MessageEventArgs(Message gameMessage)
         {
-            this.Message = gameMessage;
+            this.GameMessage = gameMessage;
         }
     }
 
