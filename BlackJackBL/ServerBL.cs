@@ -251,6 +251,16 @@ namespace BlackJackBL
 
                                 deckSum = playerOne.SumOfCards;
 
+                                // se verifica si alguno se pasó de la suma
+                                if (deckSum > 21)
+                                {
+                                    playerOne.IsPlaying = false;
+                                    playerTwo.IsPlaying = false;
+
+                                    playerOne.Status = Status.Lost;
+                                    playerTwo.Status = Status.Stay;
+                                }
+
                             }
                             else if (currentNumberOfPlayer == 2)
                             {
@@ -259,17 +269,19 @@ namespace BlackJackBL
 
                                 deckSum = playerTwo.SumOfCards;
 
+                                // se verifica si alguno se pasó de la suma
+                                if (deckSum > 21)
+                                {
+                                    playerOne.IsPlaying = false;
+                                    playerTwo.IsPlaying = false;
+
+                                    playerOne.Status = Status.Stay;
+                                    playerTwo.Status = Status.Lost;
+                                }
+
                             }
 
-                            // se verifica si alguno se pasó de la suma
-                            if (deckSum > 21)
-                            {
-                                playerOne.IsPlaying = false;
-                                playerTwo.IsPlaying = false;
-
-                                playerOne.Status = Status.Stay;
-                                playerTwo.Status = Status.Stay;
-                            }
+                           
 
                             // se establece el mensaje que se va enviar
                             message = new Message(currentNumberOfPlayer, card, Status.Deal, deckSum);
