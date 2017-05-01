@@ -59,7 +59,8 @@ namespace BlackJackCL
         PlayerTwoWins,
         Tie,
         TooManyClients,
-        PlayersConnected
+        PlayersConnected,
+        CloserTo21
         
     }
 

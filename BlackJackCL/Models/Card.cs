@@ -11,25 +11,7 @@ namespace BlackJackCL
     {
         public CardSuit Suit { get; set; }
 
-
-        private CardValue _Value;
-
-        public CardValue Value
-        {
-            get { return _Value; }
-            set 
-            {
-
-                if (Suit != CardSuit.Undefined && value != CardValue.Undefined)
-                {
-                    // se establece la url de la imagen
-                    PictureURL = Suit.ToString().ToLower() + "_of_" + value.ToString().ToLower() + ".png";
-                }
-
-                _Value = value; 
-            }
-        }
-        
+        public CardValue Value { get; set; }
 
         public string PictureURL { get; set; }
 
