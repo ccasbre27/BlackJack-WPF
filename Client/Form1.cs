@@ -59,6 +59,7 @@ namespace Client
                 // se habilitan los botones
                 btnConnect.Enabled = false;
                 btnGetCard.Enabled = true;
+                btnEnd.Enabled = true;
                 btnStay.Enabled = true;
                 lblIdPlayer.Visible = true;
 
@@ -216,6 +217,18 @@ namespace Client
         {
             btnGetCard.Enabled = status;
             btnStay.Enabled = status;
+        }
+
+        private void btnEnd_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Seguro que dese salir?", "Salir", MessageBoxButtons.YesNoCancel);
+
+            if (result == DialogResult.Yes)
+            {
+                clientBL.Disconnect();
+                Application.Exit();
+            }
+           
         }
     }
 }

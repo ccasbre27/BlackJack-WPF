@@ -38,18 +38,20 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblCards = new System.Windows.Forms.Label();
             this.lblIdPlayer = new System.Windows.Forms.Label();
+            this.btnEnd = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnEnd);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnStay);
             this.groupBox1.Controls.Add(this.btnGetCard);
             this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Location = new System.Drawing.Point(12, 269);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(580, 92);
+            this.groupBox1.Size = new System.Drawing.Size(590, 169);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -65,7 +67,7 @@
             // btnStay
             // 
             this.btnStay.Enabled = false;
-            this.btnStay.Location = new System.Drawing.Point(397, 35);
+            this.btnStay.Location = new System.Drawing.Point(303, 97);
             this.btnStay.Name = "btnStay";
             this.btnStay.Size = new System.Drawing.Size(162, 51);
             this.btnStay.TabIndex = 2;
@@ -76,7 +78,7 @@
             // btnGetCard
             // 
             this.btnGetCard.Enabled = false;
-            this.btnGetCard.Location = new System.Drawing.Point(208, 35);
+            this.btnGetCard.Location = new System.Drawing.Point(303, 31);
             this.btnGetCard.Name = "btnGetCard";
             this.btnGetCard.Size = new System.Drawing.Size(162, 51);
             this.btnGetCard.TabIndex = 1;
@@ -86,7 +88,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(17, 35);
+            this.btnConnect.Location = new System.Drawing.Point(112, 31);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(162, 51);
             this.btnConnect.TabIndex = 0;
@@ -143,11 +145,22 @@
             this.lblIdPlayer.TabIndex = 5;
             this.lblIdPlayer.Text = "Jugador #";
             // 
+            // btnEnd
+            // 
+            this.btnEnd.Enabled = false;
+            this.btnEnd.Location = new System.Drawing.Point(112, 97);
+            this.btnEnd.Name = "btnEnd";
+            this.btnEnd.Size = new System.Drawing.Size(162, 51);
+            this.btnEnd.TabIndex = 7;
+            this.btnEnd.Text = "Finalizar";
+            this.btnEnd.UseVisualStyleBackColor = true;
+            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 373);
+            this.ClientSize = new System.Drawing.Size(648, 461);
             this.Controls.Add(this.lblIdPlayer);
             this.Controls.Add(this.lblCards);
             this.Controls.Add(this.lblStatus);
@@ -177,6 +190,7 @@
         private System.Windows.Forms.Label lblCards;
         private System.Windows.Forms.Label lblIdPlayer;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnEnd;
     }
 }
 
