@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackJackBL;
+using BlackJackCL;
 using BlackJackCL.Events;
 
 namespace Server_Console
@@ -55,19 +56,19 @@ namespace Server_Console
             Console.WriteLine("Suma total de cartas = " + e.Message.DeckSum);
         }
 
-        static void serverBL_PlayerOneWins(object sender, EventArgs e)
+        static void serverBL_PlayerOneWins(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Jugador 1 gana el juego");
+            Console.WriteLine("Jugador 1 gana el juego por {0} ", Enum.GetName(typeof(Status), e.Message.Status));
         }
 
-        static void serverBL_PlayerTwoWins(object sender, EventArgs e)
+        static void serverBL_PlayerTwoWins(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Jugador 2 gana el juego");
+            Console.WriteLine("Jugador 2 gana el juego por {0}", Enum.GetName(typeof(Status), e.Message.Status));
         }
 
-        static void serverBL_TiedGame(object sender, EventArgs e)
+        static void serverBL_TiedGame(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Juego empatado");
+            Console.WriteLine("Juego empatado por {0}", Enum.GetName(typeof(Status), e.Message.Status));
         }
 
         static void serverBL_ClientDisconnected(object sender, EventArgs e)

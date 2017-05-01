@@ -48,6 +48,14 @@ namespace BlackJackCL
             this.Status = typeOfMessage;
             this.DeckSum = 0;
         }
+
+        public Message(Status typeOfMessage)
+        {
+            this.IdPlayer = 0;
+            this.CurrentCard = new Card();
+            this.Status = typeOfMessage;
+            this.DeckSum = 0;
+        }
         
     }
 }

@@ -48,9 +48,9 @@ namespace BlackJackBL
         public event MessageReceivedEventHandler CardDealed;
  
         // eventos fin de juego
-        public event EventHandler PlayerOneWins;
-        public event EventHandler PlayerTwoWins;
-        public event EventHandler TiedGame; 
+        public event MessageReceivedEventHandler PlayerOneWins;
+        public event MessageReceivedEventHandler PlayerTwoWins;
+        public event MessageReceivedEventHandler TiedGame; 
         #endregion
 
 
@@ -417,12 +417,12 @@ namespace BlackJackBL
 
                                 // si el jugador dos tiene igual 5 cartas menores que 21 hay empate
                                 case Status.FiveCards:
-                                    OnGameTied();
+                                    OnGameTied(new MessageEventArgs(new Message(Status.FiveCards)));
                                     return Status.Tie;
 
                                 // en caso contrario el jugador uno gana
                                 default:
-                                    OnPlayerOneWins();
+                                    OnPlayerOneWins(new MessageEventArgs(new Message(Status.FiveCards)));
                                     return Status.PlayerOneWins;
                                     
                             }
@@ -435,16 +435,16 @@ namespace BlackJackBL
                             {
 
                                 case Status.FiveCards:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.FiveCards)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.BlackJack:
-                                    OnGameTied();
+                                    OnGameTied(new MessageEventArgs(new Message(Status.BlackJack)));
                                     return Status.Tie;
 
                                 // en caso contrario el jugador uno gana
                                 default:
-                                    OnPlayerOneWins();
+                                    OnPlayerOneWins(new MessageEventArgs(new Message(Status.BlackJack)));
                                     return Status.PlayerOneWins;
                             }
 
@@ -455,20 +455,20 @@ namespace BlackJackBL
                             {
 
                                 case Status.FiveCards:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.FiveCards)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.BlackJack:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.BlackJack)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.TwentyOne:
-                                    OnGameTied();
+                                    OnGameTied(new MessageEventArgs(new Message(Status.TwentyOne)));
                                     return Status.Tie;
 
                                 // en caso contrario el jugador uno gana
                                 default:
-                                    OnPlayerOneWins();
+                                    OnPlayerOneWins(new MessageEventArgs(new Message(Status.TwentyOne)));
                                     return Status.PlayerOneWins;
                             }
 
@@ -480,42 +480,42 @@ namespace BlackJackBL
                             {
 
                                 case Status.FiveCards:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.FiveCards)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.BlackJack:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.BlackJack)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.TwentyOne:
-                                    OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.TwentyOne)));
                                     return Status.PlayerTwoWins;
 
                                 case Status.Stay:
                                     if (playerOne.SumOfCards > playerTwo.SumOfCards)
                                     {
 
-                                        OnPlayerOneWins();
+                                        OnPlayerOneWins(new MessageEventArgs(new Message(Status.CloserTo21)));
                                         return Status.PlayerOneWins;
                                     }
                                     else
                                     {
                                         if (playerOne.SumOfCards < playerTwo.SumOfCards)
                                         {
-                                            OnPlayerTwoWins();
+                                            OnPlayerTwoWins(new MessageEventArgs(new Message(Status.CloserTo21)));
                                             return Status.PlayerTwoWins;
                                             
                                         }
                                         else
                                         {
 
-                                            OnGameTied();
+                                            OnGameTied(new MessageEventArgs(new Message(Status.Tie)));
                                             return Status.Tie;
                                         }
                                     }
 
                                 case Status.Lost:
-                                    OnPlayerOneWins();
+                                    OnPlayerOneWins(new MessageEventArgs(new Message(Status.CloserTo21)));
                                     return Status.PlayerOneWins;
 
                                
@@ -531,12 +531,12 @@ namespace BlackJackBL
                             {
 
                                 case Status.Lost:
-                                    OnGameTied();
+                                    OnGameTied(new MessageEventArgs(new Message(Status.Tie)));
                                     return Status.Tie;
 
                                 // en caso contrario el jugador dos gana
                                 default:
-                                   OnPlayerTwoWins();
+                                    OnPlayerTwoWins(new MessageEventArgs(new Message(Status.CloserTo21)));
                                     return Status.PlayerTwoWins;      
                             }
 
@@ -582,27 +582,27 @@ namespace BlackJackBL
             }                
         }
 
-        private void OnPlayerOneWins()
+        private void OnPlayerOneWins(MessageEventArgs e)
         {
             if (PlayerOneWins != null)
             {
-                PlayerOneWins(this, EventArgs.Empty);
+                PlayerOneWins(this, e);
             }    
         }
 
-        private void OnPlayerTwoWins()
+        private void OnPlayerTwoWins(MessageEventArgs e)
         {
             if (PlayerTwoWins != null)
             {
-                PlayerTwoWins(this, EventArgs.Empty);
+                PlayerTwoWins(this, e);
             }   
         }
 
-        private void OnGameTied()
+        private void OnGameTied(MessageEventArgs e)
         {
             if (TiedGame != null)
             {
-                TiedGame(this, EventArgs.Empty);
+                TiedGame(this, e);
             }
         }
 

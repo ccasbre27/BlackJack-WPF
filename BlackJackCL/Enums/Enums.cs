@@ -55,6 +55,7 @@ namespace BlackJackCL
         FiveCards,
         TwentyOne,
         BlackJack,
+        CloserTo21,
         PlayerOneWins,
         PlayerTwoWins,
         Tie,
