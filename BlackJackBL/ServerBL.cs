@@ -104,7 +104,9 @@ namespace BlackJackBL
                             // se dispara el evento
                             OnPlayerOneConnected();
 
-                    
+                            // se indica que está jugando
+                            playerOne.IsPlaying = true;
+
                             // se inicia la configuración para el cliente en una nueva tarea
                             new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
                             break;
@@ -115,6 +117,9 @@ namespace BlackJackBL
 
                             // se dispara el evento
                             OnPlayerTwoConnected();
+
+                            // se indica que está jugando
+                            playerTwo.IsPlaying = true;
 
                             // se inicia la configuración para el cliente en una nueva tarea
                             new Task(() => ClientSetup(ConnectedClients, tcpClient)).Start();
@@ -253,6 +258,17 @@ namespace BlackJackBL
                                 playerTwo.AddCard(card);
 
                                 deckSum = playerTwo.SumOfCards;
+
+                            }
+
+                            // se verifica si alguno se pasó de la suma
+                            if (deckSum > 21)
+                            {
+                                playerOne.IsPlaying = false;
+                                playerTwo.IsPlaying = false;
+
+                                playerOne.Status = Status.Stay;
+                                playerTwo.Status = Status.Stay;
                             }
 
                             // se establece el mensaje que se va enviar
