@@ -39,7 +39,13 @@ namespace Client
             
             clientBL.MessageReceived += clientBL_MessageReceived;
 
+            clientBL.ServerError += clientBL_ServerError;
     
+        }
+
+        void clientBL_ServerError(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ha ocurrido un error en el servidor probablemente ya los jugadores están completos");
         }
 
     

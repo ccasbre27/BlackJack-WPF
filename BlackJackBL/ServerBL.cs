@@ -115,6 +115,9 @@ namespace BlackJackBL
                             // se guarda la conexión
                             playerTwo.TcpConnection = tcpClient;
 
+                            // se finaliza de escuchar las conexiones
+                            tcpListener.Stop();
+
                             // se dispara el evento
                             OnPlayerTwoConnected();
 
