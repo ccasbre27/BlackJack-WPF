@@ -144,5 +144,6 @@ namespace BlackJackCL
                 Status = Status.TwentyOne;
             }
         }
+
     }
 }

@@ -57,7 +57,10 @@ namespace BlackJackCL
         BlackJack,
         PlayerOneWins,
         PlayerTwoWins,
-        Tie
+        Tie,
+        TooManyClients,
+        PlayersConnected
+        
     }
 
 

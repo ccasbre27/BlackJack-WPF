@@ -40,7 +40,6 @@ namespace Server_Console
 
         static void serverBL_PlayerTwoConnected(object sender, EventArgs e)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Jugador 2 conectado al servidor");
         }
 
@@ -51,9 +50,9 @@ namespace Server_Console
 
         static void serverBL_CardDealed(object sender, MessageEventArgs e)
         {
-            Console.WriteLine(String.Format("Carta {0} {1} entregada al jugador {2}",e.GameMessage.CurrentCard.Suit, e.GameMessage.CurrentCard.Value, e.GameMessage.IdPlayer));
+            Console.WriteLine(String.Format("Carta {0} {1} entregada al jugador {2}",e.Message.CurrentCard.Suit, e.Message.CurrentCard.Value, e.Message.IdPlayer));
             
-            Console.WriteLine("Suma total de cartas = " + e.GameMessage.DeckSum);
+            Console.WriteLine("Suma total de cartas = " + e.Message.DeckSum);
         }
 
         static void serverBL_PlayerOneWins(object sender, EventArgs e)

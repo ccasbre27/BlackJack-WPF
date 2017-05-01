@@ -52,6 +52,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -180,6 +183,16 @@
     <Content Include="img\two_of_diamonds.png" />
     <Content Include="img\two_of_hearts.png" />
     <Content Include="img\two_of_spades.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlackJackBL\BlackJackBL.csproj">
+      <Project>{52ce6c0b-f06b-4de5-8f7b-b32e40033887}</Project>
+      <Name>BlackJackBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlackJackCL\BlackJackCL.csproj">
+      <Project>{092cd3ff-fed5-4b3d-a9fc-290322f11441}</Project>
+      <Name>BlackJackCL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

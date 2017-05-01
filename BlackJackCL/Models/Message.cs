@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJackCL
 {
+    [Serializable]
     public class Message
     {
         public int IdPlayer { get; set; }
